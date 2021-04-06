@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,15 +16,41 @@
 
 </head>
     <body>
+             <?php
+                function startsWith($string, $startString)
+                {
+                    $len = strlen($startString);
+                    return (substr($string, 0, $len) === $startString);
+                }
+
+                $url = $_SERVER['REQUEST_URI'];
+                $root = '/sprint3/';
+
+
+                if (startsWith($url, $root . 'admin_page')) {
+                    require __DIR__ . '/src/views/admin.php';
+                } elseif (startsWith($url, $root)) {
+                    require __DIR__ . '/src/views/pages.php';
+                } else {
+                    http_response_code(404);
+                    print('<p>ERROR: Something went wrong.</p>');
+                }
+            ?>
         <div class="container">
             <h2 class="header">Content Management System</h2>
+            <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e6ffe6; font-size: 18px;">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link" href="#" style="color:black;">About</a>
+                <a class="nav-link" href="#" style="color:black">News</a>
+            </nav>
 
-
-
-
+            <h5>HOME</h5>
+            <p>This is CMS home page.</p>
+        
             <footer class="footer">
                 <p>&copy; Copyrights 2021, Mini CMS project</p>
             </footer>
+        </div>
         </div>
     </body>
 
