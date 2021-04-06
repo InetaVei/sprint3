@@ -1,0 +1,16 @@
+{
+    "name": "ineta/sprint3",
+    "description": "This is my sprint3 project",
+    "authors": [
+        {
+            "name": "InetaVei",
+            "email": "74532995+InetaVei@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^2.8"
+    },
+    "autoload": {
+        "files": ["src/models/Page.php"]
+    }
+}
