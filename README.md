@@ -3,11 +3,11 @@
 # Sprint3
 ### Content manegment system application
 
-CMS application with CRUD (create/read/update/delete data from database) operations.
+CMS application with CRUD (create/read/update/delete) data from database operations.
 
 ## Project features
 - Admin is able to login and logout;
-- Admin can manege content update/delete/add page data;
+- Admin can manage content update/delete/add page data;
 - User can see page information;
 - User can navigate through the pages;
 
@@ -16,7 +16,8 @@ CMS application with CRUD (create/read/update/delete data from database) operati
 - Import 'sprint3.sql' database into local SQL Server; 
 - Use AMPPS or other open-source platform to launch a PHP interpreter;
 - Run this command in terminal php ../composer.phar install in project folder;
-- Open the path where you can launch php interpreter http://localhost/sprint3
+- Open the path where you can launch php interpreter http://localhost/sprint3/;
+- Admin login path http://localhost/sprint3/admin  (ussername admin, password 123);
 
 ## How does it looks like
 
