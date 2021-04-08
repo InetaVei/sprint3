@@ -1,2 +1,2 @@
-<?php
-print('<h3 style="color: red" >Error 404: Page Not Found</h3>');
+  <?php
+print("<h3>Error 404: Page Not Found! </h3>");

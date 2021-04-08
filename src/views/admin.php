@@ -1,118 +1,145 @@
-<?php require_once "bootstrap.php";
+<?php
 
+require_once "bootstrap.php";
+
+session_start();
+if (isset($_POST['logout'])) {
     session_start();
-    // logout logic
-    if(isset($_GET['action']) and $_GET['action'] == 'logout'){
-        session_start();
-        unset($_SESSION['username']);
-        unset($_SESSION['password']);
-        unset($_SESSION['logged_in']);
-    }
-?>
-<!doctype html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="./style.css">
+    unset($_SESSION['username']);
+    unset($_SESSION['password']);
+    unset($_SESSION['logged_in']);
+    header('Location: http://localhost/sprint3');
+    exit;
+}
 
-      <title>admin-page</title>
-    </head>
-  <body>
-
-    <?php
-      $msg = '';
-      if (isset($_POST['login']) 
-          && !empty($_POST['username']) 
-          && !empty($_POST['password'])
-      ) { 
-          if ($_POST['username'] == 'admin' && 
-            $_POST['password'] == '123'
-          ) {
-            $_SESSION['logged_in'] = true;
-            $_SESSION['timeout'] = time();
-            $_SESSION['username'] = 'admin';
-          } else {
-            $msg = '<div class="alert alert-danger" role="alert">Wrong username or password</div>';
-          }
+if (isset($_POST['login'])
+    && !empty($_POST['username'])
+    && !empty($_POST['password'])
+) {
+    if ($_POST['username'] == 'admin'
+    && $_POST['password'] == '123'
+) {
+    $_SESSION['logged_in'] = true;
+    $_SESSION['timeout'] = time();
+    $_SESSION['username'] = 'admin';
+    } else {
+        $print ('<div class="alert alert-danger" role="alert">Wrong username or password</div>');
       }
-    ?>     
+  }
 
-  <?php if($_SESSION['logged_in'] != true): ?>   
+if ($_SESSION['logged_in'] == true) {
 
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col">
-                <header>
-                  <h2 class="text-center">Content Management System</h2>
-                </header>
+    if (isset($_POST['edit'])) {
+        $page = $entityManager->find('Page', $_POST['edit']);
+        getAdminNav();
+        print('<p class="actionsName">Edit pages</p>');
+        print('<form class="actions adding" action="" method="POST">
+                    <input type="hidden" name="updateId" value="' . $page->getId() . '">
+                    <label for="name">Title</label><br>
+                    <input type="text" name="title" value="' . $page->getName() . '"><br>
+                    <label for="content">Content</label><br>
+                    <textarea id="content" name="content">' . $page->getContent() . '</textarea><br>
+                    <button class="btn btn-default" type="submit" name="update">Submit</button>
+                    <button class="btn btn-default" type="submit" name="cancel">Cancel</button>
+                </form>');
+    } elseif (isset($_POST['addNew'])) {
+        getAdminNav();
+        print('<p class="actionsName">Add new page</p>');
+        print('<form class="actions adding" action="" method="POST">
+                <label for="title">Title</label><br>
+                <input type="hidden" name="title" value="title">
+                <input type="text" id="title" name="title"><br>
+                <label for="content">Content</label><br>
+                <textarea id="content" name="content"></textarea><br>
+                <button class="btn btn-default" type="submit" name="newPage">Submit</button>
+                <button class="btn btn-default" type="submit" name="cancel">Cancel</button>
+            </form>');
+    } else {
+        getAdminNav();
+        print('<p class="actionsName">Manage Pages</p>');
 
-              <?php echo $msg; ?>
+        getTable($entityManager);
+        print('<form class="actions addPage" action="" method="POST">
+                <button class="btn btn-default" type="submit" name="addNew">Add New Page</button>
+        </form>');
+    }
+
+    if (isset($_POST['delete'])) {
+        $page = $entityManager->find('Page', $_POST['delete']);
+        $entityManager->remove($page);
+        $entityManager->flush();
+        crntDir();
+    }
+
+    if (isset($_POST['newPage'])
+        && !empty($_POST['title'])
+        && !empty($_POST['content'])) {
+            $title = $_POST['title'];
+            $content = $_POST['content'];
+            $page = new Page();
+            $page->setName($title);
+            $page->setContent($content);
+            $entityManager->persist($page);
+            $entityManager->flush();
+            crntDir();
+    } 
+    
+    if (isset($_POST['update'])) {
+        $page = $entityManager->find('Page', $_POST['updateId']);
+        $title = $_POST['title'];
+        $content = $_POST['content'];
+        $page->setName($title);
+        $page->setContent($content);
+        $entityManager->flush();
+        crntDir();
+    }
+
+    if (isset($_POST['cancel'])) {
+        crntDir();
+    }
+} else { 
+    print('<form class="loginForm" action="" method="post">
+                <input class="form-control" type="text" name="username" placeholder="admin" required autofocus></br>
+                <input class="form-control" type="password" name="password" placeholder="123" required><br>
+                <button type="submit" name="login" class="btn btn-default">Log In</button>
+            </form>');
+}
+
+function crntDir()
+{
+    header('Location: http://localhost/sprint3/admin');
+}
+
+function getAdminNav()
+{
+    print('<nav class="navigation">
+            <div class="nav"><a href="./admin">Admin</a></div>
+            <div class="nav"><a href="./">View Website</a></div>
+            <div class="nav"><form class="logout" action="" method="post">
+                <button class="logoutButton" type="submit" name="logout">Logout</button>
+            </form></div>
+        </nav>');
+}
+function getTable($entityManager)
+{
+    $pages = $entityManager->getRepository("Page")->findAll();
+    print('<table class="table table-bordered">
+            <thead class="head"><tr><th>Title</th><th>Actions</th></tr></thead>');
+    foreach ($pages as $page) {
+        print('<tr>');
+        if ($page->getName() == "Home") {
             
-              <form action="./admin.php" method="post">
-                    <div class="col-3 mb-2 ">
-                  <input type="text" name="username" class="form-control" placeholder="admin" required autofocus>
-                    </div>
-                    <div class="col-3 mb-2 ">
-                  <input type="password" name="password" class="form-control" placeholder="123" required>
-                    </div>
-                    <button type="submit" name="login" class="btn btn-primary" style="background-color: #e6ffe6; color: black;">Login</button>
-                </form>
-            </div>
-          </div>
-        </div>
-     
-
-  <?php endif; ?>
-  
-
-
-
-  <?php if($_SESSION['logged_in'] == true): ?>
-
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col">
-              <header>
-                <h2 class="text-center">Content Management System</h2>
-              </header>
-    <?php
-        print('<table class="table table-striped table-hover">');
-        print('<thead style="background-color: #e6ffe6"> ');
-        print('<tr><th>Title</th><th>Action</th><tr><tbody>');
-
-        print ('<tr>
-                <td>' . $row['name'] . '</td>
-                <td>' . '<form action="'. $_SERVER['PHP_SELF'] .'" method="post" >
-                        <div class="container-fluid">
-                        <div class="row">
-                        <div class="col-12">
-                        <a href="" type="button" name="submit" class="btn btn-primary btn-sm" style="background-color: #e6ffe6; color:black; border-color:black">Edit</a>
-                        <button type="submit" name="submit" class="btn btn-outline-primary btn-sm" value="'. $row['id'] .'" style="background-color: #e6ffe6; color:black; border-color:black">Delete</button></form>
-                        ' .  '
-                        </div>
-                        </div>
-                        </td></tr>'
-                );            
-
-        print('</tbody></table>');
-
-       ?>
-  </div>
-
-      <div class="row">
-        <div class="col">Click here to <a href = "admin.php?action=logout" class="btn btn-primary btn-sm" style="background-color: #e6ffe6; color: black;">logout</a></div>
-      </div>
-
-      <div class="col">
-      <footer class="footer" style="background-color: #e6ffe6; padding:3px;">
-            <p>&copy; Copyrights 2021</p>
-      </footer>
-      </div> 
-      <?php endif; ?>
-  </body>
-
-</html>
+            print('<td>' . $page->getName() . '</td>
+                    <td><form class="actions" action="" method="POST">
+                    <button class="btn btn-default" type="submit" name="edit" value="' . $page->getId() . '">Edit</button>
+                </form></td>');
+        } else {
+            print('<td>' . $page->getName() . '</td>');
+            print('<td><form class="actions" action="" method="POST">
+                    <button class="btn btn-default" type="submit" name="edit" value="' . $page->getId() . '">Edit</button>
+                    <button class="btn btn-default" type="submit" name="delete" value="' . $page->getId() . '">Delete</button>
+                </form></td></tr>');
+        }
+    }
+    print('</table>');
+}

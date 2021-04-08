@@ -1,0 +1,117 @@
+body,
+body * {
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  box-sizing: border-box;
+  color: #3f3e3e;
+}
+.header {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 10px;
+}
+nav {
+  background-color: #e6ffe6;
+  font-size: 17px;
+  text-decoration: none;
+}
+.navigation > .nav {
+  display: inline-block;
+  padding: 10px 30px 10px 20px;
+  text-decoration: none;
+}
+.navigation > .nav a {
+  color: #3f3e3e; 
+  text-decoration: none;
+}
+.navigation > .nav a:hover {
+   color: #3f3e3e; 
+   text-decoration: none;
+} 
+.pageName {
+  font-weight: bold;
+  padding: 20px;
+  font-size: 23px;
+}
+.pageContent {
+  height: 80%;
+  padding: 10px 0 30px 20px;
+  font-size: 17px;
+}
+.loginForm {
+  text-align: center;
+  margin-top: 50px;
+  margin-left: 450px;
+  margin-right: 450px;
+  padding: 5px 10px 30px 0;
+}
+.loginForm > .form-control {
+  margin-top: 0;
+  text-align: center;
+}
+.btn {
+    background-color: #e6ffe6;
+    color: #3f3e3e;
+    padding: 5px 25px 5px 25px;
+    border: ridge;
+}
+.btn:hover {
+    background: #90c090;
+    color: #3f3e3e;
+  }
+.navigation > .nav {
+  background-color:#e6ffe6;
+  text-decoration: none;
+}
+.navigation > .nav > .logout > .logoutButton {
+  background-color: #e6ffe6;
+  border: none;
+}
+.actionsName {
+  font-weight: bold;
+  padding: 10px 20px 10px 0;
+  font-size: 25px;
+}
+.table > .head {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #e6ffe6;
+}
+.actions > .btn {
+  padding: 2px 11px;
+}
+.addPage {
+  padding-bottom: 15px;
+}
+.adding {
+  padding-bottom: 15px;
+}
+.adding > input {
+  border: 1px solid #3f3e3e;;
+  width: 100%;
+  line-height: 20px;
+  font-size: 16px;
+  padding: 7px;
+}
+.adding > textarea {
+  border: 1px solid#3f3e3e;;
+  width: 100%;
+  line-height: 20px;
+  font-size: 16px;
+  padding: 7px;
+  margin-bottom: 15px;
+  height: 190px;
+}
+.alert {
+  color: red;
+}
+.footer {
+    background-color:#e6ffe6;
+  }
+  .footer > .footerText {
+    padding: 13px 0 11px 20px;
+    font-size: 13px;
+  }
