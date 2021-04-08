@@ -24,16 +24,16 @@
         $root = '/sprint3/';
         print("<br>");
 
-        if (startsWith($url, $root . 'admin')) {
-            require __DIR__ . '/src/views/admin.php';
-        } elseif (startsWith($url, $root)) {
-            require __DIR__ . '/src/views/pages.php';
-        } else {
-            http_response_code(404);
-            print('<p>Error: Page Not Found</p>');
+        switch ($url) {
+            case startsWith($url, $root . 'admin'):
+                require __DIR__ . '/src/views/admin.php';
+                break;
+                
+            case startsWith($url, $root):
+                require __DIR__ . '/src/views/pages.php';
+                break;
         }
-
-        ?>
+    ?>
         <footer class="footer">
             <p class="footerText">&copy; Copyrights 2021, CMS application</p>
         </footer>

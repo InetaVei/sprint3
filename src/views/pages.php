@@ -22,8 +22,8 @@ if (isset($_GET['page'])
         $page = $entityManager->find('Page', $_GET['id']);
         print('<div class="pageName">' . $page->getName() . '</div>
             <div class="pageContent">' . $page->getContent() . '</div>');
-    } else {
+} else {
         $page = $entityManager->find('Page', 1);
         print('<div class="pageName">' . $page->getName() . '</div>
             <div class="pageContent">' . $page->getContent() . '</div>');
-    }
+}
