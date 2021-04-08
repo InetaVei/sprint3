@@ -17,17 +17,14 @@ CMS application with CRUD (create/read/update/delete) data from database operati
 - Use AMPPS or other open-source platform to launch a PHP interpreter;
 - Run this command in terminal php ../composer.phar install in project folder;
 - Open the path where you can launch php interpreter http://localhost/sprint3/;
-- Admin login path http://localhost/sprint3/admin  (ussername admin, password 123);
+- Admin login path http://localhost/sprint3/admin  (ussername - admin, password - 123);
 
 ## How does it looks like
 
-User page: 
 <img width="761" alt="1" src="https://user-images.githubusercontent.com/74532995/114086845-d385ce00-98bb-11eb-9842-8483f67afc79.png">
 
-Admin login page:
 <img width="726" alt="2" src="https://user-images.githubusercontent.com/74532995/114087077-16e03c80-98bc-11eb-9484-4d5d4a3582b8.png">
 
-Admin management page: 
 <img width="714" alt="3" src="https://user-images.githubusercontent.com/74532995/114087110-22336800-98bc-11eb-9239-7493c8139d87.png">
 
 ## Authors
