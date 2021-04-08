@@ -25,7 +25,7 @@ CMS application with CRUD (create/read/update/delete) data from database operati
 
 <img width="726" alt="2" src="https://user-images.githubusercontent.com/74532995/114087077-16e03c80-98bc-11eb-9484-4d5d4a3582b8.png">
 
-<img width="714" alt="3" src="https://user-images.githubusercontent.com/74532995/114087110-22336800-98bc-11eb-9239-7493c8139d87.png">
+<img width="775" alt="3" src="https://user-images.githubusercontent.com/74532995/114088627-e1d4e980-98bd-11eb-9ddd-fe8efbb319c2.png">
 
 ## Authors
 [Ineta](https://github.com/InetaVei)
